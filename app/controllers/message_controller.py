@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status, Query
+from fastapi import APIRouter, Depends, HTTPException, status, Query, Request
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 from typing import Optional
@@ -6,7 +6,7 @@ from fastapi.responses import JSONResponse
 
 from ..schemas import message_schemas
 from ..services import message_service
-from ..utils import message_processor
+from ..utils import message_processor, rate_limiter
 from .. import database
 
 router = APIRouter(prefix='/api/messages', tags=['messages'])
@@ -25,12 +25,15 @@ def get_db():
         400: {'model': message_schemas.ErrorResponse}
     }
 )
-def get_messages(session_id: str,
-                 db: Session = Depends(get_db),
-                 limit: int = Query(50, ge=1),
-                 offset: int = Query(0, ge=0),
-                 sender: Optional[str] = Query(None),
-                 message_search: Optional[str] = Query(None)):
+def get_messages(request: Request,
+                       session_id: str,
+                       db: Session = Depends(get_db),
+                       limit: int = Query(50, ge=1),
+                       offset: int = Query(0, ge=0),
+                       sender: Optional[str] = Query(None),
+                       message_search: Optional[str] = Query(None)):
+    rate_limiter.rate_limiter(request)
+    
     if sender and sender not in ('user', 'system'):
         return JSONResponse(
             status_code=400,
@@ -81,7 +84,11 @@ def get_messages(session_id: str,
         500: {'model': message_schemas.ErrorResponse}
     }
 )
-def create_message(payload:message_schemas.MessageCreate, db: Session = Depends(get_db)):
+def create_message(request: Request, 
+                   payload:message_schemas.MessageCreate, 
+                   db: Session = Depends(get_db)):
+    rate_limiter.rate_limiter(request)
+    
     cleaned_message, metadata = message_processor.process_message(payload.content)
     payload.content = cleaned_message
     

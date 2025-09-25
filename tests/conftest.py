@@ -8,6 +8,7 @@ from app.database import Base
 from app.controllers.message_controller import get_db
 from app.main import app
 from app import database
+from app.utils import rate_limiter
 
 SQLALCHEMY_DATABASE_URL = "sqlite:///:memory:"
 engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}, poolclass=StaticPool)
@@ -42,3 +43,7 @@ def client():
     app.dependency_overrides[get_db] = override_get_db
     yield TestClient(app)
     app.dependency_overrides.clear()
+    
+@pytest.fixture(autouse=True)
+def clear_request_log():
+    rate_limiter.requests.clear()
