@@ -32,7 +32,9 @@ def get_messages(request: Request,
                        offset: int = Query(0, ge=0),
                        sender: Optional[str] = Query(None),
                        message_search: Optional[str] = Query(None)):
-    rate_limiter.rate_limiter(request)
+    rate_limiter_response = rate_limiter.rate_limiter(request)
+    if rate_limiter_response:
+        return rate_limiter_response
     
     if sender and sender not in ('user', 'system'):
         return JSONResponse(
@@ -87,7 +89,9 @@ def get_messages(request: Request,
 def create_message(request: Request, 
                    payload:message_schemas.MessageCreate, 
                    db: Session = Depends(get_db)):
-    rate_limiter.rate_limiter(request)
+    rate_limiter_response = rate_limiter.rate_limiter(request)
+    if rate_limiter_response:
+        return rate_limiter_response
     
     cleaned_message, metadata = message_processor.process_message(payload.content)
     payload.content = cleaned_message
