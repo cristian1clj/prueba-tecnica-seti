@@ -1,6 +1,7 @@
 # 🔴 Prueba tecnica SETI
 
 Repositorio con la API planteada en la prueba tecnica Desarrollador Backend (Python).
+API RESTful simple para un sistema de procesamiento de mensajes de chat.
 
 > 🔩 Desarrollado con **Python 3.10** | **FastAPI** | **SQLite**.
 
