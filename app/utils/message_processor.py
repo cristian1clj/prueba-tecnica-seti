@@ -22,7 +22,7 @@ def _replace_blocked_words(content: str, banned: List[str]) -> str:
 
 def process_message(content: str):
     cleaned = _replace_blocked_words(content, BLOCKED_WORDS)
-    word_count = len(re.findall(r"\w+", cleaned, flags=re.UNICODE))
+    word_count = len(re.findall(r"\w+|\*{3}", cleaned, flags=re.UNICODE))
     character_count = len(cleaned)
     processed_at = datetime.now(timezone.utc)
     

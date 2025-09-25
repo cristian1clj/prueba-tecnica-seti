@@ -39,6 +39,8 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload
 ```
 
+6. Ahora podra acceder a la API a travez de ***localhost:8000*** o ***127.0.0.1:8000***. (la informacion de los endpoints se encuantra a continuacion)
+
 ## 📃 Documentacion(endpoints)
 
 <table>
