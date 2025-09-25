@@ -8,7 +8,7 @@ def _replace_blocked_words(content: str, banned: List[str]) -> str:
     cleaned = []
     """
     Se busca en el mensaje si tiene alguna palabra bloqueada, 
-    si es asi, la reemplaza por uns censura a modo de corchetes
+    si es asi, la reemplaza por uns censura a modo de asteriscos
     """
     for word in content.split():
         normalized = re.sub(r'[^\w]', '', word.lower())

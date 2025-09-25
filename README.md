@@ -36,10 +36,18 @@ pip install -r requirements.txt
 5. Ejecute el proyecto.
 
 ```bash
-uvicorn app.main:app --reload
+uvicorn app.main:app
 ```
 
 6. Ahora podra acceder a la API a travez de ***localhost:8000*** o ***127.0.0.1:8000***. (la informacion de los endpoints se encuantra a continuacion)
+
+## 🧪 Como ejecutar las pruebas
+
+Una vez teniendo instalado el proyecto, habiendose ubicado dentro de este y teniendo ya instaladas las dependencias, escriba este comando en consola para ejecutar las pruebas:
+
+```bash
+pytest --cov=app --cov-report=term-missing
+```
 
 ## 📃 Documentacion(endpoints)
 
@@ -63,7 +71,7 @@ uvicorn app.main:app --reload
   </tr>
   <tr>
     <td rowspan="1">Documentacion</td>
-    <td style="background-color: #61affe; color: white"></td>
+    <td style="background-color: #3c3c3cff; color: white"></td>
     <td>/docs</td>
     <td>Accede a la documentacion generada por Swagger UI</td>
   </tr>
