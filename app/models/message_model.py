@@ -7,7 +7,7 @@ class Message(Base):
     message_id = Column(String, primary_key=True, index=True)
     session_id = Column(String, index=True, nullable=False)
     content = Column(Text, nullable=False)
-    timestamp = Column(DateTime, nullable=False)
+    timestamp = Column(DateTime(timezone=True), nullable=False)
     sender = Column(String, nullable=False)
     word_count = Column(Integer, nullable=False)
     character_count = Column(Integer, nullable=False)
