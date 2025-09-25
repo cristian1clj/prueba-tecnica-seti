@@ -51,6 +51,8 @@ pytest --cov=app --cov-report=term-missing
 
 ## 📃 Documentacion(endpoints)
 
+> Para ver documentacion mas detallada, ingrese aca: [**Documentacion**](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/cristian1clj/prueba-tecnica-seti/main/openapi.json).
+
 <table>
   <tr>
     <th>TAGS</th>
