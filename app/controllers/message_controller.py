@@ -29,7 +29,8 @@ def get_messages(session_id: str,
                  db: Session = Depends(get_db),
                  limit: int = Query(50, ge=1),
                  offset: int = Query(0, ge=0),
-                 sender: Optional[str] = Query(None)):
+                 sender: Optional[str] = Query(None),
+                 message_search: Optional[str] = Query(None)):
     if sender and sender not in ('user', 'system'):
         return JSONResponse(
             status_code=400,
@@ -43,7 +44,7 @@ def get_messages(session_id: str,
             }
         )
     
-    total, messages = message_service.get_messages_by_session(session_id, db, limit, offset, sender)
+    total, messages = message_service.get_messages_by_session(session_id, db, limit, offset, sender, message_search)
     
     data = []
     for message in messages:

@@ -20,7 +20,7 @@ git clone https://github.com/cristian1clj/prueba-tecnica-seti.git
 cd prueba-tecnica-seti
 ```
 
-3. [RECOMENDADO] Cree un nuevo ambiente virtual y activelo.
+3. **[RECOMENDADO]** Cree un nuevo ambiente virtual y activelo.
 
 ```bash
 python -m venv .venv
@@ -39,7 +39,7 @@ pip install -r requirements.txt
 uvicorn app.main:app
 ```
 
-6. Ahora podra acceder a la API a travez de ***localhost:8000*** o ***127.0.0.1:8000***. (la informacion de los endpoints se encuantra a continuacion)
+6. Ahora podra acceder a la API a travez de ***localhost:8000*** o ***127.0.0.1:8000***. (la informacion de los endpoints se encuantra mas abajo)
 
 ## 🧪 Como ejecutar las pruebas
 
@@ -61,8 +61,8 @@ pytest --cov=app --cov-report=term-missing
   <tr>
     <td rowspan="2">Messages</td>
     <td style="background-color: #61affe; color: white">GET</td>
-    <td>/api/messages/{session_id}?limit={int}&offset={int}&sender={str}</td>
-    <td>Obtiene todos los mensajes de acuerdo con la sesion especificada y los filtros adicionales</td>
+    <td>/api/messages/{session_id}?limit={int}&offset={int}&sender={str}&message_search={str}</td>
+    <td>Obtiene todos los mensajes de acuerdo con la sesion especificada y los filtros como: paginacion (limit y offset), quien lo envio (sender) o alguna similitud al contenido de un mensaje (message_search)</td>
   </tr>
   <tr>
     <td style="background-color: #49cc90; color: white">POST</td>

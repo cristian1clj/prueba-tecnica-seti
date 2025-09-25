@@ -29,10 +29,14 @@ def get_messages_by_session(session_id: str,
                             db: Session, 
                             limit: int, 
                             offset: int, 
-                            sender: str | None):
+                            sender: str | None,
+                            message_search: str | None):
     messages = db.query(message_model.Message).filter(message_model.Message.session_id == session_id)
     if sender:
         messages = messages.filter(message_model.Message.sender == sender)
+    
+    if message_search:
+        messages = messages.filter(message_model.Message.content.like(f"%{message_search}%"))
         
     total = messages.count()
     res = messages.order_by(message_model.Message.timestamp.asc()).offset(offset).limit(limit).all()
